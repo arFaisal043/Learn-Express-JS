@@ -10,17 +10,42 @@ const notes = [
 ]
 
 // create basic Express route
+
 app.get("/", (req, res) => {
     res.send("Server is running");
 })
 
 app.get("/notes", (req, res) => {
-    // string and HTTP code pass
-    // res.status(200).send("Here is your Notes about How to learn Express JS");
-
-    // JSON pass
     res.status(200).json({ notes });
 })
+
+app.get("/download", (req, res) => {
+    res.download("../20220505_092000.jpg");
+})
+
+// if visit /redirect then system auto move to /download
+app.get("/redirect", (req, res) => {
+    res.redirect("/download");
+})
+
+// header response (html)
+app.get("/html", (req, res) => {
+    res.set("Content-type", "text/html");
+    res.send("<h1>Hello, I am a HTML file...</h1>")
+})
+
+
+app.get("/login", (req, res) => {
+    res.cookie("username", "faisal");
+    res.send("Cookies create...");
+    console.log("Cookie is created");
+})
+
+app.get("/logout", (req, res) => {
+    res.clearCookie("username");
+    res.send("Cookies delete...");
+    console.log("Cookie is deleted");
+});
 
 
 app.listen(PORT, () => {
