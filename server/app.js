@@ -1,19 +1,3 @@
-👉 Routing:
-
--- Create a server using express
-
-const express  = require("express");
-const app = express(); // it creates an Express application instance that acts as a server.
-const PORT = 3000;
-
-app.listen(PORT, () => {
-    console.log(`Express server is running on ${PORT}`);
-})
-
-
-
--- Create a route using express
-
 const express  = require("express");
 const app = express(); // it creates an Express application instance that acts as a server.
 const PORT = 3000;
