@@ -1,6 +1,8 @@
+_________________________________________________________________________________________________________
+
 👉 Routing:
 
--- Create a server using express
+-- Create a server using express:
 
 const express  = require("express");
 const app = express(); // it creates an Express application instance that acts as a server.
@@ -12,10 +14,10 @@ app.listen(PORT, () => {
 
 
 
--- Create a route using express
+-- Create a route using express:
 
 const express  = require("express");
-const app = express(); // it creates an Express application instance that acts as a server.
+const app = express(); 
 const PORT = 3000;
 
 // create basic Express route
@@ -24,9 +26,198 @@ app.get("/", (req, res) => {
 })
 
 app.get("/notes", (req, res) => {
-    res.send("Here is your Notes about How to learn Express JS")
+    res.status(201).send("Here is your Notes about How to learn Express JS");
 })
 
 app.listen(PORT, () => {
     console.log(`Express server is running on ${PORT}`);
+})
+
+
+
+
+_________________________________________________________________________________________________________
+
+👉 Response:
+
+-- simple string response:
+
+app.get("/", (req, res) => {
+    res.send("Server is running");
+})
+
+
+-- response status code:
+
+app.get("/notes", (req, res) => {
+    res.status(201).send("Here is your Notes about How to learn Express JS");
+})
+
+
+
+-- JSON response:
+
+const notes = [
+    {id: 1, title: "My Note 1", content: "content 1..."},
+    {id: 2, title: "My Note 2", content: "content 2..."},
+    {id: 3, title: "My Note 3", content: "content 3..."},
+]
+
+app.get("/notes", (req, res) => {
+    // JSON response
+    res.status(200).json({ notes });
+})
+
+
+-- response download:
+
+app.get("/download", (req, res) => {
+    res.download("../20220505_092000.jpg");
+})
+
+
+-- response redirect:
+
+// if visit /redirect then system auto move to /download
+app.get("/redirect", (req, res) => {
+    res.redirect("/download");
+})
+
+
+-- response header:
+
+// header response (html)
+app.get("/html", (req, res) => {
+    res.set("Content-type", "text/html");
+    res.send("<h1>Hello, I am a HTML file...</h1>")
+})
+
+
+-- response set cookies and clear cookies:
+
+// response cookies
+app.get("/set-cookies", (req, res) => {
+    res.send("Cookies sent...");
+    console.log("Cookie is created");
+})
+
+
+// Actual use cases: when log in then create a cookies, and remove when logout
+
+app.get("/login", (req, res) => {
+    res.cookie("username", "faisal");
+    res.send("Cookies create...");
+    console.log("Cookie is created");
+})
+
+app.get("/logout", (req, res) => {
+    res.clearCookie("username");
+    res.send("Cookies delete...");
+    console.log("Cookie is deleted");
+});
+
+
+
+
+
+_________________________________________________________________________________________________________
+
+👉 Request:
+
+
+-- Request Headers (Get method):
+
+const ACCESS_KEY_IN_SERVER = "1234";
+
+app.get("/notes", (req, res) => {
+    const accessKeyFromClient = req.headers.authorization; // get client's key
+
+    if(accessKeyFromClient !== ACCESS_KEY_IN_SERVER) {
+        res.status(401).json({
+            error: "Authentication failed!"
+        })
+        return;
+    }
+
+    console.log(accessKeyFromClient);
+    res.status(200).json({ notes });
+})
+
+
+
+
+-- Request Body (Post method):
+
+app.use(express.json());
+// app.use(express.json()) built in middleware is essential for your POST endpoint to work properly.
+
+app.post("/notes", (req, res) => {
+    const { id, title, content } = req.body;
+    const addNote = { id, title, content };
+    // console.log("New note: ", addNote); // { id: 4, title: 'My Note 4', content: 'content 4...' }
+
+    notes.push(addNote);
+    // console.log("All notes: ", notes); // get all notes together
+
+    res.status(201).json(addNote);
+});
+
+
+
+
+-- Put request (request route params): for update we need id for understand which one we update. example: 
+// url: http://localhost:3000/notes/101
+
+// how to create route(id) params
+app.put("/notes/:id", (req, res) => {
+    const noteId = req.params.id;
+    console.log(noteId);
+    res.status(200).end(noteId);
+})
+
+
+// how can update by id(route params)
+
+app.put("/notes/:id", (req, res) => {
+    const noteId = req.params.id; // 1
+    const { title } = req.body;
+    console.log(title); // This is updated notes
+
+    let newNotes = notes.map( val => {
+      //console.log(`${val.id}` === noteId); // true
+
+      if(`${val.id}` === noteId) {
+        return { ...val, title};
+      }
+
+      return val
+    });
+    console.log(newNotes);
+
+    res.status(200).json(newNotes);
+})
+
+
+
+
+-- Request delete method --> http://localhost:3000/notes/1
+
+app.delete("/notes/:id", (req, res) => {
+    const noteId = req.params.id; // 1
+    notes = notes.filter(note => {
+        return `${note.id}` !== noteId;
+    })
+    console.log(notes);
+
+    res.end();
+})
+
+
+
+
+-- Request query params: http://localhost:3000/notes?id=1
+
+app.get("/notes", (req, res) => {
+    const queryId = parseInt(req.query.id); // 1
+    res.status(200).json( {notes: notes.filter(val => queryId === val.id)});
 })

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/arFaisal043/Learn-Express-JS#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "multer": "^2.0.2"
   }
 }
