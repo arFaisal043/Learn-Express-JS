@@ -221,3 +221,98 @@ app.get("/notes", (req, res) => {
     const queryId = parseInt(req.query.id); // 1
     res.status(200).json( {notes: notes.filter(val => queryId === val.id)});
 })
+
+
+
+
+
+
+_________________________________________________________________________________________________________
+
+👉 Middleware:
+1. Application Middleware
+2. Routes Middleware
+
+
+// structure application middleware:
+
+const logMiddleware = (req, res, next) => {
+  console.log(req.method, req.url); // GET /
+  next();
+};
+
+app.use(logMiddleware);
+
+
+
+1. Application middleware: -> works for all routes
+
+// save request log
+
+const logMiddleware = (req, res, next) => {
+  const log = `${new Date().toISOString()} - ${req.method} - ${req.url}`;
+  console.log(log); // 2026-02-03T07:55:29.526Z - GET - /
+
+  next();
+};
+
+app.use(logMiddleware);
+
+
+app.get("/", (req, res) => {
+  res.send("Server is running...");
+});
+
+app.get("/students", (req, res) => {
+  res.send("student url...");
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Express server is running on ${PORT}`);
+});
+
+
+
+// Save all request log on a file
+
+const fs = require("fs");
+const path = require("path");
+
+const logMiddleware = (req, res, next) => {
+  const log = `${new Date().toISOString()} - ${req.method} - ${req.url}\n`;
+  // console.log(log); // 2026-02-03T07:55:29.526Z - GET - /
+
+  fs.appendFile(path.join(__dirname, "request.log"), log, (err) => {
+    if(err) {
+        console.error("Log failed!", err);
+    }
+  })
+
+  next();
+};
+
+app.use(logMiddleware);
+
+
+
+
+2. // Route middleware: for specific Routes
+
+const authCheckMiddleware = (req, res, next) => {
+    const pass = req.headers.authorization;
+
+    if (ACCESS_KEY_IN_SERVER !== pass) {
+        res.status(401).json({
+          error: "User is not Authorized",
+        });
+
+        return;
+    }
+    next();
+}
+
+// Insert Route Middleware
+app.get("/login", authCheckMiddleware, (req, res) => {
+    res.status(200).send("User is Authorized");
+});
