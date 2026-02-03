@@ -9,9 +9,9 @@
   - response set cookies
   - clear cookies
 3. Working with request
-4. Middleware (Application Middleware)
+4. Middleware (Application Middleware and Route Middleware)
+5. Multer file upload
 
-Route Middleware
 Post application/json
 Working with Multipart Form Data
 File Upload

@@ -128,6 +128,10 @@ const ACCESS_KEY_IN_SERVER = "1234";
 //     res.status(200).json( {notes: notes.filter(val => queryId === val.id)});
 // })
 
+
+
+
+
 // ................. Middleware ................
 
 // application middleware:
@@ -186,5 +190,5 @@ app.get("/login", authCheckMiddleware, (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`Express server is running on ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
