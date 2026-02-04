@@ -8,10 +8,9 @@ const PORT = 5173;
 const serverPassword = 1234;
 
 const STUDENTS = [
-    {id: 1, name: "David", profilePic: "david.jpg"},
-    {id: 2, name: "Luna", profilePic: "luna.jpg"},
-]
-
+  { id: 1, name: "David", profilePic: "david.jpg" },
+  { id: 2, name: "Luna", profilePic: "luna.jpg" },
+];
 
 // folder destination instance:
 
@@ -26,41 +25,36 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }); // Creates multer middleware with custom storage configuration
 
 
-
 // Authentication Middleware
 const authMiddleware = (req, res, next) => {
-    const pass = req.headers.authorization;
+  const pass = req.headers.authorization;
 
-    if(serverPassword != pass) {
-        res.status(401).json(
-            {
-                error: "User is unauthorized!"
-            }
-        )
+  if (serverPassword != pass) {
+    res.status(401).json({
+      error: "User is unauthorized!",
+    });
 
-        return;
-    }
-    next();
-}
+    return;
+  }
+  next();
+};
 
 
 // Routing
 app.get("/", (req, res) => {
-    res.status(200).send("Server is running...");
+  res.status(200).send("Server is running...");
 });
 
 app.get("/login", authMiddleware, (req, res) => {
-    res.status(200).send("Login successfully...");
+  res.status(200).send("Login successfully...");
 });
 
 app.get("/students", authMiddleware, (req, res) => {
-    res.status(200).json({students: STUDENTS});
+  res.status(200).json({ students: STUDENTS });
 });
 
-
-
 // create new students: --> single file upload
-// app.use(express.json()); 
+// app.use(express.json());
 
 // app.post("/add-student", authMiddleware, upload.single("profilePic"), (req, res) => {
 //     const newStudentName = req.body.name;
@@ -76,38 +70,35 @@ app.get("/students", authMiddleware, (req, res) => {
 // })
 
 
-
-
 // create new students: --> Multiple files upload
 
-app.use(express.json()); 
+app.use(express.json());
 
 // Multiple files upload layout (middleware)
 const uploadLayout = upload.fields([
-    {name: 'photo', maxCount:1},
-    {name: 'documents', maxCount:3},
-])
+  { name: "photo", maxCount: 1 },
+  { name: "documents", maxCount: 3 },
+]);
 
 app.post("/add-student", authMiddleware, uploadLayout, (req, res) => {
-    const newStudentName = req.body.name;
-    const profilePic = req.files.photo[0].filename;
-    const documents = req.files.documents.map(val => val.filename);
+  const newStudentName = req.body.name;
+  const profilePic = req.files.photo[0].filename;
+  const documents = req.files.documents.map((val) => val.filename);
 
-    console.log(req.files);
+  console.log(req.files);
 
-    const newStudent = {
-        id: new Date().getTime(),
-        name: newStudentName,
-        profilePic,
-        documents,
-    };
+  const newStudent = {
+    id: new Date().getTime(),
+    name: newStudentName,
+    profilePic,
+    documents,
+  };
 
-    STUDENTS.push(newStudent);
+  STUDENTS.push(newStudent);
 
-    res.status(201).json({ newStudent });
-})
-
+  res.status(201).json({ newStudent });
+});
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

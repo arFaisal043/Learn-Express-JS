@@ -11,9 +11,5 @@
 3. Working with request
 4. Middleware (Application Middleware and Route Middleware)
 5. Multer file upload
-
-Post application/json
-Working with Multipart Form Data
-File Upload
-Comparison between GET and POST
-When to use GET and when to use POST
+  - File Upload
+  - Working with Multipart Form Data

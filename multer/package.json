@@ -1,0 +1,23 @@
+{
+  "name": "multer-project",
+  "version": "1.0.0",
+  "description": "Learn and build multer file uploading  project",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "multer",
+    "file-upload",
+    "backend"
+  ],
+  "author": "Faisal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "multer": "^2.0.2"
+  }
+}
