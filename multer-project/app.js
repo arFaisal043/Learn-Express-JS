@@ -47,6 +47,7 @@ app.post("/upload", upload.single("avatar"), (req, res) => {
         if (!req.file) throw new Error("No file uploaded");
 
         res.status(201).json({
+            message: "file uploaded successfully",
             success: true,
             filename: req.file.filename,
             url: `/uploads/${req.file.filename}`,
@@ -71,6 +72,8 @@ app.use((err, req, res, next) => {
 
 // 404 handler
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
+
+
 
 app.listen(PORT, () => {
     console.log(`Server running: http://localhost:${PORT}`);

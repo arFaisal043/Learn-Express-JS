@@ -1,0 +1,5 @@
+{
+  "editor.detectIndentation": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "terminal.integrated.shellIntegration.decorationsEnabled": "both"
+}
