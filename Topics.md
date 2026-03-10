@@ -40,3 +40,5 @@
   - CDN
   - Scaling
   - Load Balancing 
+
+10. What is API. Types of all APIs,Architecture and Principle of API.

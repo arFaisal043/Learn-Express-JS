@@ -1,3 +1,64 @@
+__________________________ API _______________________________________________________________________________
+
+- API: API (Application Programming Interface) is a set of rules and protocols that allows different software applications to communicate and exchange data with each other.
+
+- Types of APIs
+1. By Architecture/Protocol:
+
+REST - Uses HTTP methods, stateless, resource-based
+SOAP - XML-based protocol, more rigid, built-in security
+GraphQL - Query language, fetch exact data needed, single endpoint
+WebSocket - Real-time, bidirectional communication
+gRPC - High-performance, uses Protocol Buffers
+Webhooks - Event-driven, real-time callbacks
+
+2. By Access/Purpose:
+
+Public APIs (Open) - Available to external developers
+Private APIs (Internal) - Used within an organization
+Partner APIs - Shared with specific business partners
+Composite APIs - Combine multiple API requests
+
+
+
+- Key Principles of REST API:
+
+1. Uniform Interface
+Consistent and standardized way to interact with resources
+Uses standard HTTP methods (GET, POST, PUT, DELETE)
+Predictable URL patterns: /users, /users/123
+
+2. Stateless
+Each request contains all information needed to process it
+Server doesn't store client session data
+Every request is independent and self-contained
+
+3. Cacheable
+Responses must define themselves as cacheable or not
+Improves performance and reduces server load
+Uses HTTP cache headers (Cache-Control, Expires)
+
+4. Client-Server Architecture
+Separation of concerns between client and server
+Client handles UI, server handles data storage
+Enables independent evolution of both sides
+
+5. Layered System
+Client cannot tell if connected directly to server or intermediaries
+Allows load balancers, proxies, and gateways
+Improves scalability and security
+
+6. Code on Demand (Optional)
+Server can transfer executable code to client
+Example: JavaScript scripts, Java applets
+Simplifies clients by reducing features they need to implement
+
+
+
+
+
+
+
 _________________________________________________________________________________________________________
 
 👉 Routing:

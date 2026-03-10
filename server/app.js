@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const app = express(); // it creates an Express application instance that acts as a server.
+const app = express(); // it creates an Express application instance(obj) that acts as a server.
 
 const PORT = 3000;
 
@@ -31,7 +31,7 @@ const ACCESS_KEY_IN_SERVER = "1234";
 //   res.status(200).json({ notes });
 // });
 
-// // download
+// download
 // app.get("/download", (req, res) => {
 //     res.download("../20220505_092000.jpg");
 // })
@@ -62,21 +62,22 @@ const ACCESS_KEY_IN_SERVER = "1234";
 // // ............ Request .................
 
 // // request get method
-// // app.get("/notes", (req, res) => {
-// //   const accessKeyFromClient = req.headers.authorization; // get client's key
+// app.get("/notes", (req, res) => {
+//   const accessKeyFromClient = req.headers.authorization; // get client's key
 
-// //   if (accessKeyFromClient !== ACCESS_KEY_IN_SERVER) {
-// //     res.status(401).json({
-// //       error: "Authentication failed!",
-// //     });
-// //     return;
-// //   }
+//   if (accessKeyFromClient !== ACCESS_KEY_IN_SERVER) {
+//     res.status(401).json({
+//       error: "Authentication failed!",
+//     });
+//     return;
+//   }
 
-// //   // console.log(accessKeyFromClient);
-// //   res.status(200).json({ notes });
-// // });
+//   // console.log(accessKeyFromClient);
+//   res.status(200).json({ notes });
+// });
 
-// // request post method
+// // request post method:
+
 // app.use(express.json());
 
 // app.post("/notes", (req, res) => {
