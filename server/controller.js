@@ -1,3 +1,13 @@
+/*
+-- A controller is a function that:
+
+- Receives the request from the user
+- Processes it (maybe talks to database)
+- Sends back the response
+- Ex: Like a waiter. receive order and server food
+
+*/
+
 const express = require("express");
 const app = express();
 

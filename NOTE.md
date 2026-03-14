@@ -295,7 +295,7 @@ ________________________________________________________________________________
 2. Routes Middleware
 
 
-// structure application middleware:
+// structure of application middleware:
 
 const logMiddleware = (req, res, next) => {
   console.log(req.method, req.url); // GET /
