@@ -1,9 +1,33 @@
-const { BOOKS } = require('../models/book.db');
+const booksTable = require("../models/books.model");
+const db = require('../db');
 
 // Root controller
 exports.rootRoutes = (req, res) => {
     res.send("Books API Server is running!");
 };
+
+
+// Read book controller
+exports.readController = async (req, res) => {
+    const books = await db.select().from(booksTable);
+    res.status(200).json({ books });
+}
+
+
+// Read book by id controller
+exports.readByIDController = (req, res) => {
+    const id = parseInt(req.params.id);
+    const book = BOOKS.find((val) => val.id === id);
+
+    if (!book) {
+      return res.status(404).json({
+        message: "Book not found",
+      });
+    }
+
+    res.status(200).json({ book });
+}
+
 
 
 // create books controller
@@ -29,27 +53,6 @@ exports.createController = (req, res) => {
       message: "Book created successfully",
       book: newBook,
     });
-}
-
-
-// Read book controller
-exports.readController = (req, res) => {
-    res.status(200).json({ BOOKS });
-}
-
-
-// Read book by id controller
-exports.readByIDController = (req, res) => {
-    const id = parseInt(req.params.id);
-    const book = BOOKS.find((val) => val.id === id);
-
-    if (!book) {
-      return res.status(404).json({
-        message: "Book not found",
-      });
-    }
-
-    res.status(200).json({ book });
 }
 
 
