@@ -9,7 +9,7 @@ const createUser = async (req: Request, res: Response) => {
     const result = await userService.createUserIntoDB(req.body);
     // console.log(result.rows[0]);
 
-    res.status(200).json({
+    res.status(201).json({
       message: "User is created",
       data: result.rows[0],
     });
@@ -26,7 +26,7 @@ const createUser = async (req: Request, res: Response) => {
 
 const getAllUser = async (req: Request, res: Response) => {
   try {
-    const result = await userService.getAllUserIntoDB();
+    const result = await userService.getAllUserIntoDB(req.body);
     res.status(200).json({
       success: true,
       message: "Users retrieved successfully!",
