@@ -17,6 +17,8 @@ export const initDB = async () => {
         password TEXT NOT NULL,
         is_active boolean DEFAULT true,
         age INT,
+        role VARCHAR(10) DEFAULT 'user',
+
         created_at TIMESTAMP DEFAULT NOW(),
         updated_at TIMESTAMP DEFAULT NOW()
       )
@@ -30,6 +32,7 @@ export const initDB = async () => {
         address TEXT,
         phone VARCHAR(15),
         gender VARCHAR(10),
+        
         created_at TIMESTAMP DEFAULT NOW(),
         updated_at TIMESTAMP DEFAULT NOW()
       )
