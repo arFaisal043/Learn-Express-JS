@@ -85,3 +85,8 @@ Time - Method - URL --> 2026-05-26T20:28:39.419Z - POST - /api/users/
 Time - Method - URL --> 2026-05-27T07:50:49.127Z - GET - /api/users/
 Time - Method - URL --> 2026-05-27T07:51:56.664Z - POST - /api/profile/
 Time - Method - URL --> 2026-05-27T07:53:23.284Z - POST - /api/profile/
+Time - Method - URL --> 2026-05-27T10:52:49.355Z - GET - /
+Time - Method - URL --> 2026-05-27T10:52:49.631Z - GET - /favicon.ico
+Time - Method - URL --> 2026-05-27T10:53:25.993Z - GET - /api/users
+Time - Method - URL --> 2026-05-27T10:53:55.064Z - GET - /api/profile
+Time - Method - URL --> 2026-05-27T10:54:52.782Z - GET - /api/users
